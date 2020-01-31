@@ -1,0 +1,87 @@
+<div *ngIf="isBtnAddClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Add Price in price list</h2>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+        
+      <div class="form-group">
+        <label for="pricelist">Valid from:</label>
+        <input formControlName="pricelist" required placeholder="yyyy-MM-dd" min="2013-01-01" max="2019-12-31"  type="date"  name="pricelist" class="form-control" id="pricelist">
+     
+      </div>
+      
+      
+      <div class="form-group">
+        <label for="ticket">Type of ticket:</label>
+        <select formControlName="ticket" class="form-control" required>
+          <option *ngFor="let ticket of TypeTicket" [value] = "ticket.name">{{ticket.name}}</option>
+
+      </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input formControlName="price" type="number" required  name="price" class="form-control" id="price">
+      </div>
+      <p>{{message}}</p>
+      <button class="btn" [disabled]="!addForm.valid" >Add</button>
+    </form>
+  </div>
+
+  <div *ngIf="isBtnEditClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Edit Price in price list</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
+        <div class="form-group">
+            <label for="pricelist">Valid from:</label>
+            <input formControlName="pricelist"  readonly  name="pricelist" class="form-control" id="pricelist">
+         
+          </div>
+      
+          <div class="form-group">
+            <label for="IDPriceList">ID:</label>
+            <input formControlName="IDPriceList" readonly required name="IDPriceList" class="form-control" id="IDPriceList" type = "number">
+         
+          </div>
+          <div class="form-group">
+            <label for="ticket">Type of ticket:</label>
+            <select formControlName="ticket" class="form-control" readonly>
+              <option *ngFor="let ticket of TypeTicket" [value] = "ticket.name">{{ticket.name}}</option>
+    
+          </select>
+          </div>
+      
+          <div class="form-group">
+            <label for="price">Price:</label>
+            <input formControlName="price"  required type="number" name="price" class="form-control" id="price">
+          </div>
+          <p>{{messageEdit}}</p>
+      <button class="btn" [disabled]="!editForm.valid">Edit</button>
+    </form>
+  </div>
+
+<div class="col-md-6 user-container">
+  <br>
+    <h2 style="margin: auto">Price list</h2>
+    <hr>
+    
+    <button class="btn" style="width:140px;" (click)="addPrice()"> Add Price List item </button>
+    <table class="table table-striped">
+      <thead>
+      <tr>             
+        <th>Valid from</th>
+        <th>Type of ticket</th>
+        <th>Price of ticket</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let priceListLine of priceList">
+        <td class="hidden">{{priceListLine.IDPrice}}</td>
+        <td class="hidden">{{priceListLine.IDPriceList}}</td>
+        <td>{{priceListLine.ValidFrom | date:'yyyy-MM-dd'}}</td>
+        <td>{{priceListLine.TypeOfTicket}}</td>
+        <td>{{priceListLine.Value}}</td>
+        <td><button class="btn" (click)="deleteLine(priceListLine)"> Delete </button>
+          <button class="btn" (click)="editLine(priceListLine)" style="margin-left: 20px;"> Edit </button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  

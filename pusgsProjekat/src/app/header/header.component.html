@@ -1,0 +1,83 @@
+
+
+<nav *ngIf="isUnregistrated" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+        <li><a routerLink="/start" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf015;</i></a></li>
+        <li><a routerLink="/schedule" routerLinkActive="active">Schedule</a></li>
+        <li> <a routerLink="/lineMesh" routerLinkActive="active">Line mesh</a></li>
+        <li><a routerLink="/location" routerLinkActive="active">Vehicle location</a></li>  
+        <li><a routerLink="/price" routerLinkActive="active">Price list</a></li>   
+   
+      </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+          <li> <a routerLink="/register" routerLinkActive="active">Register</a></li>
+  
+        </ul>
+      </div> 
+    </div>
+  </nav>
+
+  <nav *ngIf="isRegistrated" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/start" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf015;</i></a></li>
+          <li><a routerLink="/profileView" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf406;</i></a></li>
+          <li><a routerLink="/schedule" routerLinkActive="active">Schedule</a></li>
+          <li> <a routerLink="/lineMesh" routerLinkActive="active">Line mesh</a></li>
+          <li><a routerLink="/location" routerLinkActive="active">Vehicle location</a></li>  
+          <li><a routerLink="/price" routerLinkActive="active">Price list</a></li>   
+     
+        </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a routerLink="/logout" routerLinkActive="active">Log out</a></li>
+          </ul>
+        </div> 
+      </div>
+    </nav>
+
+    <nav *ngIf="isAdmin" class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+              <ul class="nav navbar-nav navbar-right">
+            <li><a routerLink="/start" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf015;</i></a></li>
+            <li><a routerLink="/line-mesh-admin" routerLinkActive="active">Update line</a></li>   
+            <li><a routerLink="/station-admin" routerLinkActive="active">Update station</a></li>   
+            <li><a routerLink="/schedule-admin" routerLinkActive="active">Update schedule</a></li>   
+            <li><a routerLink="/price-list-admin" routerLinkActive="active">Update price list</a></li>   
+
+          </ul>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a routerLink="/logout" routerLinkActive="active">Log out</a></li>
+            </ul>
+          </div> 
+        </div>
+      </nav>
+
+
+      <nav *ngIf="isController" class="navbar navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav navbar-right">
+              <li><a routerLink="/start" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf015;</i></a></li>
+              <li><a routerLink="/validate-profile" routerLinkActive="active">Validate profile</a></li>   
+              <li><a routerLink="/validate-ticket" routerLinkActive="active">Validate ticket</a></li>   
+
+            </ul>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a routerLink="/logout" routerLinkActive="active">Log out</a></li>
+              </ul>
+            </div> 
+          </div>
+        </nav>

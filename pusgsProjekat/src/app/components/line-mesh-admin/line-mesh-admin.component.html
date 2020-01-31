@@ -1,0 +1,94 @@
+<div *ngIf="isBtnAddClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Add Line</h2>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+        
+      <div class="form-group">
+        <label for="number">Number</label>
+        <input formControlName="number" required type="number" name="number" class="form-control" id="number">
+      </div>
+      
+      <div class="form-group">
+        <label for="typeOfLine">Type of Line:</label>
+        <select formControlName="typeOfLine" class="form-control" required>
+          <option *ngFor="let typeOfLine of TypeLine" required [value] = "typeOfLine.name">{{typeOfLine.name}}</option>
+
+      </select>
+      </div>
+
+      <div class="form-group">
+          <label style="color: rgb(72, 187, 72); font-size: 15px"  for="stations">Stations:&nbsp;</label>
+          <label  *ngFor="let station of stations; let i= index">
+              <input type="checkbox"  (change)="onChange(station)">
+              &nbsp;  {{station.Name}}&nbsp;&nbsp;
+            </label>
+
+        </div>
+  
+      <p style="color:#ff1100;">{{message}}</p>
+      <button class="btn" [disabled]="!addForm.valid">Add</button>
+    </form>
+  </div>
+
+  <div *ngIf="isBtnEditClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Edit Line</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
+        <!-- <div class="form-group">
+            <label for="number">Number</label>
+            <input formControlName="number" type="number" readonly name="number" class="form-control" id="number" [value] = "number.name">{{number.name}}
+           
+          </div> -->
+      
+          <div class="form-group">
+            <label for="typeOfLine">Type of Line:</label>
+            <select formControlName="typeOfLine" class="form-control" required>
+              <option *ngFor="let typeOfLine of TypeLine" [value] = "typeOfLine.name">{{typeOfLine.name}}</option>
+    
+          </select>
+          </div>
+
+          <div class="form-group">
+            <label style="color: rgb(72, 187, 72); font-size: 15px" for="currentStations">Current stations:</label>
+            <label  *ngFor="let currentStation of currentStations"> &nbsp;{{currentStation.Name}}&nbsp;<b style="color: rgb(72, 187, 72); font-size: 20px">--</b></label>
+    
+          </div>
+
+          <div class="form-group">
+              <label style="color: rgb(72, 187, 72); font-size: 15px" for="stations">Stations: &nbsp;</label>
+              <label  *ngFor="let station of stations; let i= index">
+                  <input type="checkbox"  (change)="onChange(station)">
+                  {{station.Name}}&nbsp;&nbsp;&nbsp;
+                </label>
+    
+            </div>
+      <button class="btn" [disabled]="!editForm.valid" >Edit</button>
+    </form>
+  </div>
+
+<div class="col-md-6 user-container">
+  <br>
+    <h2 style="margin: auto">Lines</h2>
+    <hr>
+    
+    <button class="btn" style="width:140px;" (click)="addLine()"> Add Line </button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="hidden">IDtypeOfLine</th>
+        <th>Number</th>
+        <th>Type of Line</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let line of lines">
+          <td class="hidden">{{line.Version}}</td>
+          <td class="hidden">{{line.IDtypeOfLine}}</td>
+        <td>{{line.Number}}</td>
+        <td>{{line.TypeOfLine}}</td>
+        <td><button class="btn" (click)="deleteLine(line)"> Delete </button>
+          <button class="btn" (click)="editLine(line)" style="margin-left: 20px;"> Edit </button></td>
+      </tr>
+      </tbody>
+    </table>
+    <!-- <p>{{messageEdit}}</p> -->
+
+  </div>

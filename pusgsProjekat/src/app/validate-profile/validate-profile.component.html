@@ -1,0 +1,36 @@
+
+<h2 align="center">Profiles for validate</h2>
+<hr>
+<table *ngIf="areUsersThere"  border="1" align="center">
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Status</th>
+      <th>Image</th>
+      <th>Verificate</th>
+      <th>Reject</th>
+    </tr>
+    <tr *ngFor="let item of users">
+      <td>{{item.Name}} </td>
+      <td>{{item.LastName}}</td>
+
+      <td *ngIf="item.State == 0">
+        Proccess
+      </td>
+      <td *ngIf="item.State == 1">
+        Accepted
+      </td>
+      <td *ngIf="item.State == 2">
+        Rejected
+      </td>
+      <td *ngIf="item.State == 3">
+        Invalid
+      </td>
+      <td><img [src]="item.ImageUrl"/></td>
+      <td><button (click)="validateProfile(item.Email)">Validate</button></td>
+      <td><button (click)="rejectProfile(item.Email)">Reject</button></td>
+    </tr>
+   
+  </table>
+
+  <h3 align="center" *ngIf="!areUsersThere">There are no profile for validate!</h3>

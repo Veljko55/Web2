@@ -1,0 +1,13 @@
+
+
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
+  .bg-1 { 
+    background-color: #3eb0f1; /* Green */
+    color: #ffffff;
+  }
+
+  .margin {margin-bottom: 45px;}

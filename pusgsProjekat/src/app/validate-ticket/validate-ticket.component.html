@@ -1,0 +1,17 @@
+<h2 align="center">Check validation of tickets</h2>
+
+<form [formGroup]="validateTicket" (ngSubmit)="isValid()">
+        <table align="center" border='1'>
+    
+            <tr>
+                <th>ID of ticket:</th>
+                <td> <input min="0" type="number" formControlName="idTicket" required></td>
+              </tr>
+        
+                <tr>
+                    <th colspan="2"> <button type="submit">Check</button>
+                    </th>
+                    </tr>
+    </table>
+    </form>
+<h2 align="center">{{message}}</h2>

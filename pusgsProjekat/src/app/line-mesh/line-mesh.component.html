@@ -1,0 +1,43 @@
+<h2 align="center" style="color:#3eb0f1;">Line mesh</h2>
+<hr>
+
+<label style="font-size: 20px; color:#1ca7e7; font-weight: bold">&nbsp;&nbsp;&nbsp;Chose line:</label> 
+<label style="font-size: 20px; color:#e7961c; font-weight: bold" *ngFor="let line of lines">
+  &nbsp;   
+   <input style="font-size: 16px"
+    (change)="lala(line)"
+    type="checkbox"
+    >   {{line}}&nbsp;&nbsp;&nbsp;  
+</label>
+
+<div align="center">
+  <!-- Kreiramo mapu -->
+  <agm-map [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [zoom]="18" (mapClick)="placeMarker($event)">  
+
+
+      <ng-container *ngFor="let markerInfo of markersInfo">
+
+    <agm-marker [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" [title]="markerInfo.title"
+    [label]="markerInfo.label" [iconUrl]="markerInfo.iconUrl">
+      
+      <agm-info-window [latitude]="markerInfo.location.latitude" [longitude]="markerInfo.location.longitude" >
+
+        <span style="font-size: 16px;font-family:'Times New Roman'">{{markerInfo.title}}</span>
+        <br/>
+        <span style="font-family:'Times New Roman'; color:gray;"><strong>{{markerInfo.label}}</strong></span>
+      </agm-info-window>
+
+    </agm-marker>
+      </ng-container>
+
+  <ng-container *ngFor="let polyline1 of polylines1">
+    <agm-polyline [strokeColor]="polyline1.color">
+         <agm-polyline-point *ngFor="let point of polyline1.path" [latitude]="point.latitude" [longitude]="point.longitude">
+         </agm-polyline-point>
+    </agm-polyline>
+
+    <agm-marker *ngFor="let point of polyline1.path" [latitude]="point.latitude" [longitude]="point.longitude" [iconUrl]="polyline1.icon">
+    </agm-marker>
+  </ng-container>
+  </agm-map>
+</div>

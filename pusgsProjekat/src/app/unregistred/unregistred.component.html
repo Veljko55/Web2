@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+            <li><button (click)="start" >START</button></li>
+        <li><a routerLink="unreg/start" routerLinkActive="active"><i style="font-size:20px" class="fa">&#xf015;</i></a></li>
+        <li><a routerLink="/crisis-center" routerLinkActive="active">Schedule</a></li>
+        <li> <a routerLink="/admin" routerLinkActive="active">Line mesh</a></li>
+        <li><a routerLink="unreg/login" routerLinkActive="active">Vehicle location</a></li>  
+        <li><a routerLink="unreg/price" routerLinkActive="active">Price list</a></li>   
+   
+      </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="unreg/login" routerLinkActive="active">Login</a></li>
+          <li> <a routerLink="unreg/register" routerLinkActive="active">Register</a></li>
+  
+        </ul>
+      </div> 
+    </div>
+  </nav>
+  <!-- <div> 
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+  </div>
+  <router-outlet name="popup"></router-outlet> 
+   -->

@@ -1,0 +1,81 @@
+<div *ngIf="isBtnAddClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Add Departion for line</h2>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="line">Line:</label>
+        <select formControlName="line" required class="form-control">
+            <option *ngFor="let line of lines" [value]="line.Number">{{line.Number}}</option>
+
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="day">Type of day:</label>
+        <select formControlName="day" required class="form-control">
+          <option *ngFor="let item of TypeDay" [value] = "item.name">{{item.name}}</option>
+
+      </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="time">Time:</label>
+        <input formControlName="time" placeholder="hh:mm" required type="time"  name="time" class="form-control" id="time">
+      </div>
+  
+      <button class="btn" [disabled]="!addForm.valid">Add</button>
+    </form>
+  </div>
+
+  <div *ngIf="isBtnEditClicked" class="col-md-6 user-container">
+    <h2 class="text-center">Edit Departion for line</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmitEdit()">
+      <div class="form-group">
+        <label for="line">Line:</label>
+        <input formControlName="line" readonly name="line" class="form-control" id="line" >
+      
+      </div>
+  
+      <div class="form-group">
+        <label for="day">Type of day:</label>
+        <select formControlName="day" class="form-control" required>
+          <option *ngFor="let item of TypeDay" [value] = "item.name">{{item.name}}</option>
+
+      </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="time">Time:</label>
+        <input formControlName="time"  required name="time" class="form-control" id="time">
+      </div>
+  
+      <button class="btn" [disabled]="!editForm.valid">Edit</button>
+    </form>
+  </div>
+
+<div class="col-md-6 user-container">
+  <br>
+  <h2 style="margin: auto">Schedule</h2>
+  <hr>
+  <button class="btn" style="width:140px;" (click)="addScheduleLine()"> Add Schedule line </button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Number</th>
+      <th>Time</th>
+      <th>Day</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let scheduleLine of schedule">
+      <td class="hidden">{{scheduleLine.IDDay}}</td>
+      <td>{{scheduleLine.Number}}</td>
+      <td>{{scheduleLine.Time | date:'mediumTime'}}</td>
+      <td>{{scheduleLine.Day}}</td>
+      <td><button class="btn" (click)="deleteLine(scheduleLine)"> Delete </button>
+        <button class="btn" (click)="editLine(scheduleLine)" style="margin-left: 20px;"> Edit </button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

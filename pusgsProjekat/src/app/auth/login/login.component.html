@@ -1,0 +1,20 @@
+<h2 align="center">Log in</h2>
+<hr>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <table align="center" border='1'>
+
+        <tr>
+            <th>Username:</th>
+            <td> <input type="text" formControlName="username" required></td>
+          </tr>
+          <tr>
+              <th>Password:</th>
+              <td> <input type="password" formControlName="password" required></td>
+            </tr>
+  
+            <tr>
+                <th colspan="2">   <button type="submit" [disabled]="!loginForm.valid" *ngIf="!authService.isLoggedIn">Login</button>
+                </th>
+                </tr>
+</table>
+</form>

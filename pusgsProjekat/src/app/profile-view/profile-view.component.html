@@ -1,0 +1,54 @@
+<h2 align="center">Profile</h2>
+
+<hr>
+<h5 *ngIf="!updateUserForm.valid" align="center" style=" font: 20px Montserrat, sans-serif;color:#72909e;">&nbsp;Form is not valid</h5>
+<h5 *ngIf="message" align="center" style=" font: 23px Montserrat, sans-serif;color:#ee2f28;">&nbsp;{{message}}</h5>
+
+<form [formGroup]="updateUserForm" (ngSubmit)="update()" enctype="multipart/form-data" >
+<table align="center" border='1'>
+    <tr>
+      <th>First name:</th>
+      <td><input type="text" formControlName="Name" required placeholder="eg. John"/></td>
+    </tr>
+    <tr>
+      <th>Last name:</th>
+      <td><input type="text" formControlName="LastName" required placeholder="eg. Mark"/></td>
+    </tr>
+     <tr>
+        <th>Email:</th>
+        <td>{{regUser.Email}}</td>
+      </tr>
+      <tr>
+          <th>Birth date:</th>
+          <td>{{regUser.BirthdayDate}}</td>
+        </tr>
+        <tr>
+            <th>Address:</th>
+            <td><input type="text" formControlName="Address" required placeholder="eg. Street 88"/></td>
+          </tr>
+          <tr>
+              <th>Verification status:</th>
+              <td *ngIf="regUser.State == 0">
+                Proccess
+              </td>
+              <td *ngIf="regUser.State == 1">
+                Accepted
+              </td>
+              <td *ngIf="regUser.State == 2">
+                Rejected
+              </td>
+              <td *ngIf="regUser.State == 3">
+                Invalid
+              </td>
+            </tr>
+  
+<tr *ngIf="isRegular">
+<th>Promeni/Izaberi sliku<input type="file" id="filePicker" (change)="handleFileSelect($event)"></th>
+<td><img [src]="mySrc" /></td>
+</tr>
+
+    <tr>
+     <td colspan="2"><button type="submit"  [disabled]="!updateUserForm.valid">Update</button></td>
+    </tr>
+  </table>
+</form>

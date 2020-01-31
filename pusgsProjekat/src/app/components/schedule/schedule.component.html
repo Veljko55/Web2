@@ -1,0 +1,58 @@
+
+
+  <h2 align="center">Schedule</h2>
+<hr>
+<form [formGroup]="ScheduleForm" (ngSubmit)="ScheduleShow()">
+    <table align="center" border='1'>
+       <tr>
+          <th>Type of Line:</th>
+          <td>
+              <select formControlName="line" (change)="typeSelected()" required>
+                  <option *ngFor="let item of TypeLine" [value] = "item.name">{{item.name}}</option>
+      
+              </select>
+          </td>
+        </tr>
+        <tr>
+            <th>Type of Day:</th>
+            <td>
+                <select formControlName="day" required>
+                    <option *ngFor="let item of TypeDay" [value] = "item.name">{{item.name}}</option>
+      
+                </select>
+            </td>
+          </tr>
+       
+        <tr>
+                <th>Number:</th>
+                <td>
+                    <select formControlName="number" required>
+                        <option *ngFor="let line of lines" [value]="line.Number">{{line.Number}}</option>
+                    </select>
+                </td>
+        </tr>
+            
+    
+        <tr>
+        <th colspan="2"><button type="submit" [disabled]="!ScheduleForm.valid">Show</button></th>
+        </tr>
+        
+        </table>
+      </form>
+      <hr>
+
+      <table *ngIf="!empty" align="center" class="table" style="width: 50%;"> 
+            <tr>
+              <th>Number</th  >
+              <th>Time</th> 
+              <th>Day</th>
+             
+            </tr>
+            
+        <tr *ngFor="let schedule of schedules">
+          <td >{{schedule.Number}}</td>
+          <td>{{schedule.Time | date: 'short'}}</td>
+          <td>{{schedule.Day}}</td>
+      </tr>
+        <label>{{message}}</label>
+    </table>

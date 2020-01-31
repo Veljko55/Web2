@@ -1,0 +1,26 @@
+th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+/* body {
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: black;
+} */
+
+table{
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: black;
+}
+
+h2{
+    font: 30px Montserrat, sans-serif;
+    color:#3eb0f1;
+    font-weight: bold;
+}
+
+input{
+    background: #d1e9f7
+}

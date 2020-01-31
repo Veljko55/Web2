@@ -1,0 +1,84 @@
+
+ <div *ngIf="isLoaded">
+    <h2 align="center" style=" font: 30px Montserrat, sans-serif;color:#3eb0f1;font-weight: bold;">Manage station</h2>
+    <table align="center" border='1' style="font: 20px Montserrat, sans-serif; line-height: 1.8; color: black;" >
+        <tr>
+            <th style="padding: 4px;">Name</th>
+            <th style="padding: 4px;">Address</th>
+            <th style="padding: 4px;">Latitude</th>   
+            <th style="padding: 4px;">Longitude</th>      
+            <th style="padding: 4px;"></th> 
+            <th style="padding: 4px;"></th>     
+
+          </tr>
+          <tr *ngFor="let item of stations">
+              <td style="padding: 4px;">{{item.Name}}</td>
+              <td style="padding: 4px;">{{item.Address}}</td>
+              <td style="padding: 4px;">{{item.X}}</td>
+              <td style="padding: 4px;">{{item.Y}}</td>
+              <td style="padding: 4px;"><button (click)="Edit(item.Name)">Edit</button></td>
+              <td style="padding: 4px;"><button (click)="Delete(item.Name)">Delete</button></td>
+          </tr>
+    </table>
+</div>
+<div *ngIf="canEdit">
+  <hr>
+  <h2 align="center" style=" font: 28px Montserrat, sans-serif;color:#f13e5c;">Edit station</h2>
+
+  <form [formGroup]="stationForm" (ngSubmit)="Update()" enctype="multipart/form-data" >
+    <table align="center" border='1' style="font: 20px Montserrat, sans-serif; line-height: 1.8; color: black;" >
+        <tr>
+            <th style="padding: 4px;">Name</th>
+            <th style="padding: 4px;">Address</th>
+            <th style="padding: 4px;">Latitude</th>   
+            <th style="padding: 4px;">Longitude</th>      
+            <th style="padding: 4px;"></th>    
+
+          </tr>
+          <tr>
+              <td>{{statin.Name}}</td>
+              <td style="padding: 4px;"><input type="text" formControlName="Address" required/></td>
+              <td style="padding: 4px;"><input type="number" formControlName="Latitude" required/></td>
+              <td style="padding: 4px;"><input type="number" formControlName="Longitude" required/></td>
+              <td style="padding: 4px;"><button>Save</button></td>
+          </tr>
+    </table>
+    </form>
+    <h5 align="center" style=" font: 23px Montserrat, sans-serif;color:#ee2f28;">&nbsp;{{message}}</h5>
+  </div>
+<hr>
+
+
+
+
+
+
+
+<hr>
+<h2 align="left" style=" font: 30px Montserrat, sans-serif;color:#3eb0f1;font-weight: bold;">Add station</h2>
+<hr>
+<h5 *ngIf="message1" align="left" style=" font: 23px Montserrat, sans-serif;color:#ee2f28;">&nbsp;{{message1}}</h5>
+
+  <form [formGroup]="station" (ngSubmit)="addStation()" enctype="multipart/form-data"  >
+    <table align="left" border='1' style="font: 20px Montserrat, sans-serif; line-height: 1.8; color: black;" >
+        <tr>
+          <th>Name:</th>
+          <td><input type="text" formControlName="Name" required/></td>
+        </tr>
+        <tr>
+          <th>Address:</th>
+          <td><input type="text" formControlName="Address" required/></td>
+        </tr>
+        <tr>
+          <th>Longitude:</th>
+          <td><input type="number" formControlName="Longitude" required/></td>
+        </tr>
+        <tr>
+          <th>Latitude:</th>
+          <td><input type="number" formControlName="Latitude" required/></td>
+        </tr>
+        <tr>
+          <td colspan="2"><button>Add</button></td>
+         </tr>
+        </table>
+        </form>

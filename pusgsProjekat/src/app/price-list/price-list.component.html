@@ -1,0 +1,92 @@
+
+
+       <h2 align="center">Price list</h2>
+        <hr>
+       <table align="center" border='1'>
+          <tr>
+              <th>Type of ticket:</th>
+              <td>
+       <select [(ngModel)]="selectedTicket">
+          <option *ngFor="let item of dataTicket" [ngValue]="item">{{item.name}}</option>
+        </select>
+        </td>
+        <tr *ngIf="!isLogged">
+            <th>Type of passanger:</th>
+            <td>
+        <select [(ngModel)]="selectedUser">
+            <option *ngFor="let item1 of dataUser" [ngValue]="item1">{{item1.name}}</option>
+          </select>
+          </td>
+          <tr>
+          <th></th>
+          <td><button (click)="showPrices(isLogged)">Show</button> </td>
+        </tr>
+         
+      </table>
+      <h5 *ngIf="message1" align="center" style=" font: 23px Montserrat, sans-serif;color:#ee2f28;">&nbsp;{{message1}}</h5>
+
+<hr>
+
+<table *ngIf="isPriceDataLoaded" align="center" border='1'>
+      <tr>
+          <th>Price: </th>
+          <td><label>{{prices}}</label></td>
+        </tr>
+        <tr>
+            <td colspan="2" *ngIf="isLogged"><button (click)="buyTicket()">Buy</button></td>
+          </tr>
+</table>
+
+<h5 *ngIf="message" align="center" style=" font: 25px Montserrat, sans-serif;color:#1064c4;">&nbsp;{{message}}</h5>
+<hr>
+<form [formGroup]="emailForm" (ngSubmit)="buyOneHour()">
+<table *ngIf="isOneHour" align="center" border='1'>
+    <tr>
+        <input type="email" formControlName="email" [(ngModel)]="email" required placeholder="Email to get ticket" >
+        </tr>
+        <tr>
+            <th><button type="submit" [disabled]="!emailForm.valid">Buy one-hour ticket here!</button></th>
+        </tr>
+
+</table>
+</form>
+<h3 *ngIf="messageUnregistredSucced" align="center" style=" font: 25px Montserrat, sans-serif;color:#1064c4;">&nbsp;{{messageUnregistredSucced}}</h3>
+
+
+<div *ngIf="isLogged && tickets.length">
+  <hr>
+  <h2 align="center">List of you tickets</h2>
+    <table align="center" border='1' class="table test">
+            <tr>
+              <th>ID</th >
+              <th>Valid for</th> 
+              <th>Bought time</th>
+              <th>Valid to</th>   
+              <th>Check in</th>      
+            </tr>
+            
+        <tr *ngFor="let t of tickets">
+          <td >{{t.IdTicket}}</td>
+          <td *ngIf="t.Type == 0">
+            One Hour
+          </td>
+          <td *ngIf="t.Type == 1">
+            Day
+          </td>
+          <td *ngIf="t.Type == 2">
+            Mounth
+          </td>
+          <td *ngIf="t.Type == 3">
+            Year
+          </td>
+          <td>{{t.From | date: 'short'}}</td>
+          <td >{{t.To | date: 'short'}}</td>
+          <td *ngIf= "!t.IsChecked"><button (click)="checkIn(t.IdTicket)">Check in</button></td>
+          <td *ngIf= "t.IsChecked">Checked in</td>
+      </tr>
+      
+          
+    </table>
+
+  </div>
+     

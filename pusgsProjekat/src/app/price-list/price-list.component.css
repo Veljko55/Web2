@@ -1,0 +1,21 @@
+th, td {
+    padding: 4px;
+    text-align: center;
+}
+
+
+.test{
+    width: 80%;
+}
+
+table{
+    font: 20px Montserrat, sans-serif;
+    line-height: 1.8;
+    color: black;
+}
+
+h2{
+    font: 30px Montserrat, sans-serif;
+    color:#3eb0f1;
+    font-weight: bold;
+}
