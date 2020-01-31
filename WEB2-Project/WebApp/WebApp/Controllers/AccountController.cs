@@ -506,7 +506,6 @@ namespace WebApp.Controllers
         public string MakeImg(string imgUrl)
         {
             string base64String = "";
-
             if (imgUrl != "" && imgUrl != null)
             {
                 Image image = Image.FromFile(imgUrl);
