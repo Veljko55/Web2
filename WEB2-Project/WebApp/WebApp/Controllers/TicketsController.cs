@@ -37,46 +37,8 @@ namespace WebApp.Controllers
             var email1 = Request.GetOwinContext().Authentication.User.Identity.Name;
             var tickets = db.Tickets.GetAll().Where(t => t.UserName == email1).ToList();
 
-            Task.Run(() => SendAsync("Hello", "Hello ", "", "djokic.veljko55@gmail.com"));
-
             return db.Tickets.GetAll().Where(t => t.UserName == email1).ToList();
 
-        }
-        
-            public static async void SendAsync(string subject, string plainTextContent, string htmlContent, string to)
-            {
-                // Retrieve the API key from the environment variables. See the project README for more info about setting this up.
-                var apiKey = "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";
-                var client = new SendGridClient(apiKey);
-                var from = new EmailAddress("jovan.prodanovic20@gmail.com", "Jovan Prodanovic");
-                var msg = MailHelper.CreateSingleEmail(from, new EmailAddress(to), subject, plainTextContent, htmlContent);
-                var response = await client.SendEmailAsync(msg);
-            }
-            private void SendMail()
-        {
-            try
-            {
-                using (MailMessage mail = new MailMessage())
-                {
-                    mail.From = new MailAddress("djokic.veljko55@gmail.com");
-                    mail.To.Add("djokic.veljko55@gmail.com");
-                    mail.Subject = "Hello World";
-                    mail.Body = "test tekst";
-
-                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
-                    {
-                        smtp.Credentials = new NetworkCredential("djokic.veljko55@gmail.com", "Veljko1996");
-                        smtp.EnableSsl = false;
-                        smtp.UseDefaultCredentials = true;
-
-                        smtp.Send(mail);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
 
         [Authorize(Roles = "AppUser")]
@@ -93,7 +55,6 @@ namespace WebApp.Controllers
         {
 
             var email1 = Request.GetOwinContext().Authentication.User.Identity.Name;
-
 
             return db.Tickets.GetAll().Where(t => t.UserName == email1);
 

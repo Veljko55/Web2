@@ -18,6 +18,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using WebApp.Models;
 using WebApp.Providers;
 using WebApp.Results;
@@ -448,13 +450,13 @@ namespace WebApp.Controllers
                     // image = resizeImage(image, new Size(500, 500));
                     try
                     {
-                        image.Save(@"C:\Users\Lenovo\Desktop\New folder\slike\UserImages" + user.Email + ".jpg");
+                        image.Save(@"C:\Users\Lenovo\Desktop\New folder\slike\UserImages\" + user.Email + ".jpg");
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                    imgUrl = @"C:\Users\Lenovo\Desktop\New folder\slike\UserImages" + user.Email + ".jpg";
+                    imgUrl = @"C:\Users\Lenovo\Desktop\New folder\slike\UserImages\" + user.Email + ".jpg";
                 }
             }
 
@@ -549,9 +551,19 @@ namespace WebApp.Controllers
                 return BadRequest();
             else
             {
-                //SendMail(app.Email, $"Controller has checked your profile! {Environment.NewLine} Your varification status of profile is : " + app.State + ".");
+                Task.Run(() => SendAsync("Status karte", "Kontroler je proverio vas profil! Vas verifikacioni status profila je: " + app.State + ". ", "", "djokic.veljko55@gmail.com"));
                 return StatusCode(HttpStatusCode.NoContent);
             }
+        }
+
+        public static async void SendAsync(string subject, string plainTextContent, string htmlContent, string to)
+        {
+            // Retrieve the API key from the environment variables. See the project README for more info about setting this up.
+            var apiKey = Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("jovan.prodanovic20@gmail.com", "Jovan Prodanovic");
+            var msg = MailHelper.CreateSingleEmail(from, new EmailAddress(to), subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
 
         [Authorize(Roles = "Controller")]
