@@ -633,3 +633,6 @@ C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\obj\Debug\Web
 C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\obj\Debug\WebApp.csproj.CopyComplete
 C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\obj\Debug\WebApp.dll
 C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\obj\Debug\WebApp.pdb
+C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\bin\SendGrid.dll
+C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\bin\SendGrid.pdb
+C:\Users\Lenovo\Desktop\New folder\Web2\WEB2-Project\WebApp\WebApp\bin\SendGrid.xml

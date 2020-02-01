@@ -6,6 +6,7 @@ export class Ticket {
    UserName:string;
    To : Date;
    IsChecked : boolean;
+   TypeOfTicket:number;
   }
   
 

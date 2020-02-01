@@ -448,13 +448,13 @@ namespace WebApp.Controllers
                     // image = resizeImage(image, new Size(500, 500));
                     try
                     {
-                        image.Save(@"C:\Users\Racunar\Desktop\" + user.Email + ".jpg");
+                        image.Save(@"C:\Users\Lenovo\Desktop\New folder\slike\UserImages" + user.Email + ".jpg");
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
                     }
-                    imgUrl = @"C:\Users\Racunar\Desktop\" + user.Email + ".jpg";
+                    imgUrl = @"C:\Users\Lenovo\Desktop\New folder\slike\UserImages" + user.Email + ".jpg";
                 }
             }
 
@@ -537,8 +537,12 @@ namespace WebApp.Controllers
         {
 
             ApplicationUser app = UserManager.FindByEmail(user.Email);
-            //Odkomentarisati liniju z
             app.State = user.State;
+            if (user.State == Enums.VerificationType.Accepted && app.PassengerType != Enums.PassengerType.Regular && string.IsNullOrEmpty(app.Picture)) 
+            {
+                app.State = Enums.VerificationType.Invalid;
+            }
+            //Odkomentarisati liniju z
             IdentityResult res = UserManager.Update(app);
 
             if (!res.Succeeded)

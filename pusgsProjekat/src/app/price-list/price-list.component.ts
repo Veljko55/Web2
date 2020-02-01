@@ -43,7 +43,7 @@ dataUser:Array<Object> = [
 
 
 dat:Date;
-ticket:Ticket={IdTicket:1, From:this.dat,CheckIn:this.dat ,Type:0,UserName:"guest", To:this.dat, IsChecked : false};
+ticket:Ticket={IdTicket:1, From:this.dat,CheckIn:this.dat ,Type:0,UserName:"guest", To:this.dat, IsChecked : false, TypeOfTicket:1};
 
 role;
 
@@ -135,7 +135,7 @@ emailForm = this.fb.group({
 
     this.role = localStorage.role;
 
-    if(this.role==null){
+    /*if(this.role==null){
       this.priceOfOneHourTicket();
       this.isOneHour=true;
     }
@@ -151,6 +151,32 @@ emailForm = this.fb.group({
         alert("Kontroler nije verifikovao Vas profil.");
       }
      
+    }*/
+    if(this.role==null){
+      this.priceOfOneHourTicket();
+      this.isOneHour=true;
+    }
+    else{
+
+      if(this.user.State==1){
+      this.ticket.TypeOfTicket=this.selectedTicket.name;
+      this.priceService.buyTickett(this.ticket).subscribe((data) => {
+        console.log(data);
+        alert("Uspesno ste kupili kartu.");
+        this.showTickets();
+      });
+      }
+      else if(this.user.State==2)
+      {
+        alert("Kontroler je odbio vas zahtev za verifikaciju.");
+      }
+      else if(this.user.State==3)
+      {
+        alert("Kontroler je odbio vas zahtev za verifikaciju jer niste prilozili sliku.");
+      }
+      else{
+        alert("Kontroler jos nije verifikovao Vas profil.");
+      }
     }
 
   }

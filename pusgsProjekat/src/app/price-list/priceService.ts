@@ -55,6 +55,14 @@ export class PriceService {
           //catchError(this.handleError<any>('login'))
         );
       }
+      buyTickett(ticket:Ticket){
+       
+        return this.http.post<any>(this.registerUrl+"Tickets/Buy?Type="+ ticket.TypeOfTicket +"&UserName="+ localStorage.email, { 'headers': { 'Content-type': 'x-www-form-urlencoded' } }).pipe(
+          map(res => {
+          }),
+          //catchError(this.handleError<any>('login'))
+        );
+      }
 
       showTickets(): Observable<Ticket[]> {
         //user.IDtypeOfUser = 1;
