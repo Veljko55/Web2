@@ -29,7 +29,7 @@ export class ValidateProfileComponent implements OnInit {
       this.users = Users;
       this.users.forEach(obj =>{obj.Picture = "data:image/png;base64,"+obj.Picture;} );
       
-      if(this.users[1]!=null){
+      if(this.users[0]!=null){
         this.areUsersThere = true;
       }else
         this.areUsersThere=false;

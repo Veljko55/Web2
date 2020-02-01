@@ -405,25 +405,34 @@ namespace WebApp.Controllers
 
             UserManager.AddToRole(user.Id, "AppUser");
             //SendMail(model.Email, $"Your varification status of profile is : " + model.State.ToString() + ".");
-
             return Ok();
         }
 
-        protected void SendMail(string toEmail, string content)
+        private void SendMail()
         {
-            MailMessage mail = new MailMessage("izvini.moram@gmail.com", toEmail);
-            SmtpClient client = new SmtpClient();
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = true;
-            client.Credentials = new NetworkCredential("izvini.moram@gmail.com", "izvinimoram33");
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Host = "smtp.gmail.com";
-            mail.Subject = "Public City Transport Serbia";
-            mail.Body = content;
-            client.Send(mail);
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient("hidrogradnja.djokic@gmail.com");
+
+                mail.From = new MailAddress("hidrogradnja.djokic@gmail.com");
+                mail.To.Add("djokic.veljko55@gmail.com");
+                mail.Subject = "Test Mail";
+                mail.Body = "This is for testing SMTP mail from GMAIL";
+
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("hidrogradnja.djokic@gmail.com", "130496677");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
+
+       
 
         public string MakePath(RegisterBindingModel user)
         {
