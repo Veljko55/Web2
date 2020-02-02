@@ -62,7 +62,7 @@ namespace WebApp.Controllers
                 line.Stations = new List<Station>();
             }
 
-            Schadule exist = db.Schadules.GetAll().FirstOrDefault(u => (u.DepartureTime == sl.Time.ToString() && u.Day == dd));
+            Schadule exist = db.Schadules.GetAll().FirstOrDefault(u => (u.DepartureTime == sl.Time.ToString() && u.Day == dd && u.Line.ToString()==sl.Number));
             if (exist == null)
             {
 
@@ -94,179 +94,45 @@ namespace WebApp.Controllers
         [ResponseType(typeof(Schadule))]
         public IHttpActionResult EditLineSchedule([FromBody]ScheduleLine sl)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (sl == null)
-            {
-                return NotFound();
-            }
-
-            DayType dd = DayType.Workday;
+            Schadule schadule = new Schadule();
+            schadule = db.Schadules.Find(x => x.IdSchadule == sl.IDDay).FirstOrDefault();
             if (sl.Day == "Work day")
             {
-                dd = Enums.DayType.Workday;
+                schadule.Day = Enums.DayType.Workday;
             }
             else if (sl.Day == "Weekend")
             {
-                dd = Enums.DayType.Weekend;
+                schadule.Day = Enums.DayType.Weekend;
             }
+            schadule.DepartureTime = sl.Time.ToString();
 
-            Schadule s = new Schadule {  Day = dd, DepartureTime = sl.Time.ToString() };
-            var line = db.Lines.GetAll().FirstOrDefault(u => u.Number == sl.Number);
-
-            if (s.Lines == null)
-            {
-                s.Lines = new List<Line>();
-            }
-
-            if(sl.Number != "")
-            {
-                s.Lines.Add(line);
-                s.Line = line;
-                //s.IdLine = line.IdLine;
-                s.Type = line.RouteType;
-            }
-
-            List<Schadule> schadules = db.Schadules.GetAll().ToList();
-            Schadule schaduleFromBase = null;
-
-            foreach (var sc in schadules)
-            {
-                if (sc.Lines != null)
-                {
-                    foreach (var l in sc.Lines)
-                    {
-                        if (l.Number == sl.Number)
-                        {
-                            schaduleFromBase = sc;
-                        }
-                    }
-                }
-
-            }
-            
-
-            if (schaduleFromBase.Lines.Count == 1)
-            {
-                Schadule exist = db.Schadules.GetAll().FirstOrDefault(u => (u.DepartureTime == sl.Time.ToString()/*&& u.IdSchadule == sl.IDDay*/));
-                if (exist == null)
-                {
-                    schaduleFromBase.DepartureTime = sl.Time.ToString();
-                    schaduleFromBase.Day = dd;
-                    db.Schadules.Update(schaduleFromBase);
-
-                    for (int i = 0; i < line.Schadules.Count; i++)
-                    {
-                        if (line.Schadules[i].IdSchadule == schaduleFromBase.IdSchadule)
-                        {
-                            line.Schadules[i] = schaduleFromBase;
-                        }
-                    }
-
-                    db.Lines.Update(line);
-                }
-                else
-                {
-                    db.Schadules.Remove(schaduleFromBase);
-                    s.Lines.Add(line);
-                    db.Schadules.Update(s);
-                    line.Schadules.Remove(schaduleFromBase);
-                    line.Schadules.Add(s);
-                    db.Lines.Update(line);
-
-                }
-
-            }
-            else if (schaduleFromBase.Lines.Count > 1)
-            {
-                Schadule exist = db.Schadules.GetAll().FirstOrDefault(u => (u.DepartureTime == sl.Time.ToString() && u.Day == dd));
-                if (exist == null)
-                {
-
-                    schaduleFromBase.Lines.Remove(line);
-                    line.Schadules.Remove(schaduleFromBase);
-                    s.Lines.Add(line);
-                    db.Schadules.Add(s);
-                    line.Schadules.Add(s);
-                    db.Lines.Update(line);
-                }
-                else
-                {
-                    schaduleFromBase.Lines.Remove(line);
-                    line.Schadules.Remove(schaduleFromBase);
-                    exist.Lines.Add(line);
-                    db.Schadules.Update(exist);
-                    line.Schadules.Add(exist);
-                    db.Lines.Update(line);
-                }
-            }
-            int r = 1;
-            r = db.Complete();
-            if (r == -1)
-            {
-                return BadRequest("bad");
-            }
-
+            db.Schadules.Update(schadule);
+            db.Complete();
 
             return Ok();
         }
 
         [Authorize(Roles = "Admin")]
-        [Route("DeleteLineSchedule/{Number}/{Day}")]
+        [Route("DeleteLineSchedule/{Id}")]
         // DELETE: api/Schedules/5
         [ResponseType(typeof(Schadule))]
-        public IHttpActionResult DeleteLineSchedule(string Number, string Day)
+        public IHttpActionResult DeleteLineSchedule(int Id)
         {
-            if (Number == null)
+            Schadule schadule = new Schadule();
+            schadule = db.Schadules.Find(x => x.IdSchadule == Id).FirstOrDefault();
+            var lines = db.Lines.GetAll().Where(x=>x.Schadules.Contains(schadule));
+
+            foreach (var line in lines) 
             {
-                return NotFound();
+           
+                db.Lines.Update(line);
             }
 
-            List<Schadule> schadules = db.Schadules.GetAll().ToList();
-
-            List<Line> lines = db.Lines.GetAll().ToList();
-            Line line = null;
-            Schadule schadule = null;
-
-            DayType dd = DayType.Workday;
-            if (Day == "Work day")
-            {
-                dd = DayType.Workday;
-            }
-            else if(Day == "Weekend")
-            {
-                dd = DayType.Weekend;
-            }
-
-            foreach (var s in schadules)
-            {
-                if(s.Lines != null)
-                {
-                    foreach (var l in s.Lines)
-                    {
-                        if (Number == l.Number && s.Day == dd)
-                        {
-                            line = db.Lines.Get(l.IdLine);
-                            schadule = db.Schadules.Get(s.IdSchadule);
-                        }
-                    }
-                }
-            }
-            if (schadule == null)
-            {
-                return NotFound();
-            }
-
-            line.Schadules.Remove(schadule);
-            db.Lines.Update(line);
-            schadule.Lines.Remove(line);
+            db.Schadules.Remove(schadule);
             db.Schadules.Update(schadule);
             db.Complete();
 
-            return Ok(schadule);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

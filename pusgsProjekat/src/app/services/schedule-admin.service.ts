@@ -32,7 +32,7 @@ export class ScheduleAdminService {
 
   public deleteLine(scheduleLine: ScheduleLine){
 
-  return this.client.delete(`http://localhost:52295/api/Schedule/DeleteLineSchedule/${scheduleLine.Number}/${scheduleLine.Day}`);  
+  return this.client.delete(`http://localhost:52295/api/Schedule/DeleteLineSchedule/${scheduleLine.IDDay}`);  
 
   }
 

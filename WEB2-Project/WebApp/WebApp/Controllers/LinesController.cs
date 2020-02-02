@@ -147,6 +147,8 @@ namespace WebApp.Controllers
                             sl.Day = "Weekend";
                         else if (true)
                             sl.Day = "Work day";
+
+                        sl.IDDay = dep.IdSchadule;
                         schedule.Add(sl);
                     }
                 }
@@ -176,6 +178,8 @@ namespace WebApp.Controllers
                         sl.Day = "Weekend";
                     else if (dep.Day == DayType.Workday)
                         sl.Day = "Work day";
+
+                    sl.IDDay = dep.IdSchadule;
                     schedule.Add(sl);
                 }
             }

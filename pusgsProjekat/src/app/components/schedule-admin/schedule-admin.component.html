@@ -68,7 +68,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let scheduleLine of schedule">
-      <td class="hidden">{{scheduleLine.IDDay}}</td>
       <td>{{scheduleLine.Number}}</td>
       <td>{{scheduleLine.Time | date:'mediumTime'}}</td>
       <td>{{scheduleLine.Day}}</td>
